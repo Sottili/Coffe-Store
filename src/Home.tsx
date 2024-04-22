@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
 
-import { styled } from "styled-components";
+// Images
+import cafe_home from "./assets/cafe_home.svg";
 
+// Icons
 import { MdShoppingCart } from "react-icons/md";
 import { BsBoxSeamFill } from "react-icons/bs";
 import { PiTimerFill, PiCoffeeFill } from "react-icons/pi";
 
-import cafe_home from "./assets/cafe_home.svg";
+//Components
+import { CoffeList } from "./components/CoffesList";
+import { styled } from "styled-components";
 
-import CardCoffe from "./components/cardCoffe";
+// Types
+import { ICoffe } from "./types/Coffe";
+import { api } from "./provider";
+import { AxiosResponse } from "axios";
 
 const Container = styled.main`
   overflow-x: hidden;
@@ -18,6 +25,10 @@ const SectionCall = styled.div`
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  margin-top: 170px;
+  @media (max-width: 575px) {
+    margin-top: 50px;
+  }
 `;
 
 const CallCoffesTitle = styled.h1`
@@ -88,11 +99,7 @@ const IconBenefit = styled.i`
 `;
 
 const ContentCoffes = styled.section`
-  padding: 0 120px;
-
-  @media (max-width: 575px) {
-    padding: 0 10px;
-  }
+  padding: 0;
 `;
 
 const CoffesCall = styled.h3`
@@ -100,43 +107,21 @@ const CoffesCall = styled.h3`
   font-family: "Baloo 2", cursive;
   font-size: 32px;
   font-weight: 800;
+  text-align: center;
 `;
-
-const CoffesList = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-`;
-
-interface Coffe {
-  price: String;
-  description: String;
-  categories: Array<String>;
-  photo_url: String;
-  title: String;
-}
 
 const Home = () => {
-  const [coffes, setCoffes] = useState<Coffe[]>([]);
+  const [coffes, setCoffes] = useState<ICoffe[] | []>([]);
+
+  const fetchData = async () => {
+    api.get("/").then((response: AxiosResponse) => {
+      setCoffes(response.data);
+    });
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await fetch(
-        "https://api-coffe-store-9au4.vercel.app/coffees"
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          setCoffes(data);
-        })
-        .catch((error) => {
-          console.error("Erro ao obter a lista de cafés:", error);
-        });
-      console.log(result);
-    };
     fetchData();
   }, []);
-
-  console.log(coffes);
 
   return (
     <>
@@ -182,16 +167,8 @@ const Home = () => {
           </div>
         </SectionCall>
         <ContentCoffes>
-          <CoffesCall>Nossos Cafés</CoffesCall>
-          <CoffesList>
-            {coffes.length > 0
-              ? coffes.map((coffe: Coffe) => (
-                  <div>
-                    <h1>{coffe.title}</h1>
-                  </div>
-                ))
-              : "Loading"}
-          </CoffesList>
+          <CoffesCall>Faça seu pedido</CoffesCall>
+          <CoffeList coffes={coffes} />
         </ContentCoffes>
       </Container>
     </>

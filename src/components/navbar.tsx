@@ -5,7 +5,7 @@ import logo from "../assets/Logo.svg";
 import { HiMiniMapPin } from "react-icons/hi2";
 import { MdShoppingCart } from "react-icons/md";
 
-const Header = styled.header`
+const Header = styled.nav`
   display: flex;
   justify-content: space-around;
   width: 100%;
@@ -15,9 +15,10 @@ const Header = styled.header`
     padding: 0px 12px;
     padding-top: 15px;
     justify-content: space-between;
-    width: 90%;
+    width: 95%;
     height: auto;
   }
+  position: fixed;
 `;
 
 const LogoHeader = styled.img`
@@ -50,9 +51,12 @@ const BtnLocal = styled.button`
   @media (max-width: 575px) {
     display: none;
   }
+  margin-right: 5px;
 `;
 
 const BtnCart = styled.button`
+  display: flex;
+  align-items: center;
   margin-left: 5px;
   border: none;
   border-radius: 6px;
@@ -61,8 +65,9 @@ const BtnCart = styled.button`
   background: #f1e9c9;
   text-align: center;
   > svg {
-    margin-top: 5px;
+    margin-top: 0px;
   }
+  cursor: pointer;
 `;
 
 const Navbar = () => {
@@ -79,6 +84,7 @@ const Navbar = () => {
           São Paulo, SP
         </BtnLocal>
         <BtnCart>
+          <p style={{ fontSize: "18px", marginRight: "3px" }}>Carrinho</p>
           <MdShoppingCart />
         </BtnCart>
       </ContentBtnsHeader>

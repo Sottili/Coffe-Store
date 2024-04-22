@@ -6,7 +6,7 @@ import { MdShoppingCart } from "react-icons/md";
 
 import { ICoffe } from "../types/Coffe";
 import { useState } from "react";
-import { api } from "../provider";
+import { api } from "../services/provider";
 
 const CoffesList = styled.div`
   display: flex;

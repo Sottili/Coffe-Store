@@ -9,12 +9,12 @@ import { BsBoxSeamFill } from "react-icons/bs";
 import { PiTimerFill, PiCoffeeFill } from "react-icons/pi";
 
 //Components
-import { CoffeList } from "./components/CoffesList";
+import { CoffeList } from "../components/CoffesList";
 import { styled } from "styled-components";
 
 // Types
-import { ICoffe } from "./types/Coffe";
-import { api } from "./provider";
+import { ICoffe } from "../types/Coffe";
+import { api } from "../services/provider";
 import { AxiosResponse } from "axios";
 
 const Container = styled.main`

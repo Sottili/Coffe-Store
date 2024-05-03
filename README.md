@@ -9,6 +9,7 @@
 - ReactJS
 - Typescript
 - Styled Components
+- Axios
 
 <h2 id="started">🚀 Getting started</h2>
 
